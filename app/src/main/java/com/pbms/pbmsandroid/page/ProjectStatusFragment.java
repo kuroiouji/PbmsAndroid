@@ -4,11 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pbms.pbmsandroid.MainActivity;
 import com.pbms.pbmsandroid.R;
+import com.pbms.pbmsandroid.adapter.RvStatusAdapter;
+import com.pbms.pbmsandroid.model.ProjectDao;
+import com.pbms.pbmsandroid.model.StatusDao;
+import com.pbms.pbmsandroid.service.HttpManager;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +44,9 @@ public class ProjectStatusFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    RecyclerView recyclerView;
+    List<StatusDao> status;
 
     public ProjectStatusFragment() {
         // Required empty public constructor
@@ -65,6 +83,13 @@ public class ProjectStatusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_project_status, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerview_list);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(manager);
+        getSt();
+        service();
         return inflater.inflate(R.layout.fragment_project_status, container, false);
     }
 
@@ -105,5 +130,62 @@ public class ProjectStatusFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void service() {
+        Call<List<ProjectDao>> call = HttpManager.getInstance().getService().getProjectByYear(4);
+        Log.d("service", "GG ");
+        call.enqueue(new Callback<List<ProjectDao>>() {
+            @Override
+            public void onResponse(Call<List<ProjectDao>> call, Response<List<ProjectDao>> response) {
+                if (response.isSuccessful()) {
+                    List<ProjectDao> res = response.body();
+                    Log.d("service", "if :: " + response.message());
+                    RvStatusAdapter adapter = new RvStatusAdapter(res, status, getActivity());
+                    recyclerView.setAdapter(adapter);
+                    for (ProjectDao row : res) {
+                        Log.d("service", row.getPjName());
+                    }
+                } else {
+                    try {
+                        Log.d("service", "else :: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProjectDao>> call, Throwable t) {
+                Log.d("service", "else :: " + t);
+            }
+        });
+    }
+
+    public void getSt() {
+
+        Call<List<StatusDao>> call = HttpManager.getInstance().getService().getStatus();
+        call.enqueue(new Callback<List<StatusDao>>() {
+            @Override
+            public void onResponse(Call<List<StatusDao>> call, Response<List<StatusDao>> response) {
+                if (response.isSuccessful()) {
+                    List<StatusDao> res = response.body();
+                    Log.d("service", "if :: " + response.message());
+                    status = res;
+
+                } else {
+                    try {
+                        Log.d("service", "else :: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StatusDao>> call, Throwable t) {
+                Log.d("service", "else :: " + t);
+            }
+        });
     }
 }
