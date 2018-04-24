@@ -90,7 +90,7 @@ public class ProjectStatusFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         getSt();
         service();
-        return inflater.inflate(R.layout.fragment_project_status, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -100,7 +100,7 @@ public class ProjectStatusFragment extends Fragment {
         }
     }
 
-    @Override
+    /*@Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -109,7 +109,7 @@ public class ProjectStatusFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {
