@@ -1,6 +1,5 @@
 package com.pbms.pbmsandroid.page;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -85,7 +84,7 @@ public class BudgetGraphFragment extends Fragment {
         // Inflate the layout for this fragment
         service();
         View view = inflater.inflate(R.layout.fragment_budget_graph, container, false);
-        chart = (PieChart) view.findViewById(R.id.bg_graph);
+        chart = (PieChart) view.findViewById(R.id.pieChart);
         return view;
     }
 
@@ -171,8 +170,8 @@ public class BudgetGraphFragment extends Fragment {
         chart.setData(data);
         chart.setHoleRadius(30);
         chart.setTransparentCircleRadius(40);
-        chart.animateY(3000);
-        chart.animateY(3000, Easing.EasingOption.EaseInBounce);
+        chart.animateY(1500);
+        chart.animateY(1500, Easing.EasingOption.EaseInBounce);
         chart.setUsePercentValues(true);
 
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
