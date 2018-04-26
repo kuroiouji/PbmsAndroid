@@ -30,17 +30,6 @@ public class ProjectDao {
     @SerializedName("pjSpend")
     private String pjSpend;
 
-    public ProjectDao(String pjId, String pjCode, String pjName, String pjBgyId, String pjStId, String pjOrigin, String type, String pjSpend) {
-        this.pjId = pjId;
-        this.pjCode = pjCode;
-        this.pjName = pjName;
-        this.pjBgyId = pjBgyId;
-        this.pjStId = pjStId;
-        this.pjOrigin = pjOrigin;
-        this.type = type;
-        this.pjSpend = pjSpend;
-    }
-
     public String getPjId() {
         return pjId;
     }
