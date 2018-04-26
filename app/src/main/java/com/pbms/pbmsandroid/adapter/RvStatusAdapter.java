@@ -54,7 +54,7 @@ public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.Projec
         pjPosition = position;
         holder.pj_name.setText(projectDaos.get(position).getPjName());
         holder.pj_code.setText(projectDaos.get(position).getPjCode());
-        holder.pj_budget.setText(projectDaos.get(position).getPjSpend() + " บาท");
+        holder.pj_budget.setText("ใช้ไป: " + projectDaos.get(position).getPjSpend() + " บาท");
         if (projectDaos.get(position).getType().equals("project")) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#ffffff"));
         } else if (projectDaos.get(position).getType().equals("activity")) {
@@ -78,7 +78,7 @@ public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.Projec
             holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if(!statusDaos.get(position).getStId().equals(stId)) {
+                    if (!statusDaos.get(position).getStId().equals(stId)) {
                         Log.d("tg", "onItemSelected: " + position + " " + pjId + " " + type);
                         projectDaos.get(pjPosition).setPjStId(statusDaos.get(position).getStId());
                     }
@@ -113,7 +113,7 @@ public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.Projec
             pj_code = (TextView) itemView.findViewById(R.id.pj_code);
             pj_budget = (TextView) itemView.findViewById(R.id.pj_budget);
             spinner = (Spinner) itemView.findViewById(R.id.pj_status);
-            gradientDrawable = (GradientDrawable)pj_code.getBackground().mutate();
+            gradientDrawable = (GradientDrawable) pj_code.getBackground().mutate();
         }
     }
 }
