@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.pbms.pbmsandroid.MainActivity;
 import com.pbms.pbmsandroid.R;
 import com.pbms.pbmsandroid.adapter.SpBgyAdapter;
 import com.pbms.pbmsandroid.model.BudgetYear;
@@ -137,6 +139,29 @@ public class HomeFragment extends Fragment {
                     if (budgetYears.size() > 0) {
                         SpBgyAdapter adapter = new SpBgyAdapter(getActivity(), budgetYears);
                         spinner.setAdapter(adapter);
+//                        String bgyId = ((MainActivity) getActivity()).getBgyId();
+                        if (bgyId != ""){
+                            int ps = 0;
+                            for (BudgetYear bgy : budgetYears) {
+                                if(bgy.getBgyId().equals(bgyId)) {
+                                    spinner.setSelection(ps);
+                                }
+                                ps++;
+                            }
+                        }else{
+                            spinner.setSelection(0);
+                        }
+                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                ((MainActivity) getActivity()).setBgyId(budgetYears.get(position).getBgyId());
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                     }
                 } else {
                     try {

@@ -18,7 +18,7 @@ import com.pbms.pbmsandroid.page.ProjectStatusFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private String bgyId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -76,9 +81,9 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new Fragment();
 
         if (id == R.id.nav_home) {
-            fragment = new HomeFragment().newInstance("1");
+            fragment = new HomeFragment().newInstance(bgyId);
         } else if (id == R.id.nav_pjstatus) {
-            fragment = new ProjectStatusFragment();
+            fragment = new ProjectStatusFragment().newInstance(bgyId);
         } else if (id == R.id.nav_withdraw) {
 
         } else if (id == R.id.nav_graph) {
@@ -93,5 +98,14 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public String getBgyId() {
+        return bgyId;
+    }
+
+    public void setBgyId(String bgyId) {
+        this.bgyId = bgyId;
+        Log.d("Main", "setBgyId: " + this.bgyId);
     }
 }
