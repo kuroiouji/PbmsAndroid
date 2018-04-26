@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.pbms.pbmsandroid.page.BudgetGraphFragment;
 import com.pbms.pbmsandroid.page.HomeFragment;
 import com.pbms.pbmsandroid.page.ProjectStatusFragment;
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_withdraw) {
 
         } else if (id == R.id.nav_graph) {
-
+            fragment = new BudgetGraphFragment().newInstance(bgyId);
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
