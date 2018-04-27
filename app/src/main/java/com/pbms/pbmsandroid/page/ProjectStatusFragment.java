@@ -137,7 +137,7 @@ public class ProjectStatusFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<ProjectDao> res = response.body();
                     Log.d("service", "if :: " + response.message());
-                    RvStatusAdapter adapter = new RvStatusAdapter(res, status, getActivity());
+                    RvStatusAdapter adapter = new RvStatusAdapter(res, status, getActivity(),bgyId);
                     recyclerView.setAdapter(adapter);
                     /*for (ProjectDao row : res) {
                         Log.d("service", row.getPjName());

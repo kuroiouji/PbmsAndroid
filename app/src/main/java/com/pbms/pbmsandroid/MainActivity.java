@@ -13,13 +13,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.pbms.pbmsandroid.model.ProjectDao;
 import com.pbms.pbmsandroid.page.BudgetGraphFragment;
 import com.pbms.pbmsandroid.page.HomeFragment;
 import com.pbms.pbmsandroid.page.ProjectStatusFragment;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String bgyId;
+    List<ProjectDao> pro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,4 +114,5 @@ public class MainActivity extends AppCompatActivity
         this.bgyId = bgyId;
         Log.d("Main", "setBgyId: " + this.bgyId);
     }
+
 }

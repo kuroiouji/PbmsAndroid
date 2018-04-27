@@ -3,6 +3,7 @@ package com.pbms.pbmsandroid.service;
 import com.pbms.pbmsandroid.model.BudgetYearDao;
 import com.pbms.pbmsandroid.model.ProjectDao;
 import com.pbms.pbmsandroid.model.StatusDao;
+import com.pbms.pbmsandroid.model.TransDao;
 import com.pbms.pbmsandroid.model.UseBudgetDao;
 
 import java.util.List;
@@ -30,5 +31,5 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("updateStatus")
-    Call<String> updateStatus(@Field("pjId") String pjId,@Field("stId") String stId);
+    Call<TransDao> updateStatus(@Field("id") String pjId, @Field("stId") String stId, @Field("bgyId") String bgyId,@Field("type") String type);
 }
