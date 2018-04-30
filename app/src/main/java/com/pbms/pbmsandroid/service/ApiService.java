@@ -1,6 +1,7 @@
 package com.pbms.pbmsandroid.service;
 
 import com.pbms.pbmsandroid.model.BudgetYearDao;
+import com.pbms.pbmsandroid.model.PersonDao;
 import com.pbms.pbmsandroid.model.ProjectDao;
 import com.pbms.pbmsandroid.model.StatusDao;
 
@@ -22,4 +23,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("getProjectByYear")
     Call<List<ProjectDao>> getProjectByYear(@Field("bgyId") int id);
+
+    @GET("getPerson")
+    Call<List<PersonDao>> getPerson();
+
 }
