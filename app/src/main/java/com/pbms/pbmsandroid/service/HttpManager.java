@@ -2,6 +2,7 @@ package com.pbms.pbmsandroid.service;
 
 import android.content.Context;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,10 +19,11 @@ public class HttpManager {
     private ApiService service;
 
     private HttpManager() {
-
+        OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.80.39.17/TSP58/nursing/index.php/pbms/project/android/AndroidApi/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
         service = retrofit.create(ApiService.class);
     }

@@ -13,12 +13,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.pbms.pbmsandroid.model.ProjectDao;
+import com.pbms.pbmsandroid.page.BudgetGraphFragment;
 import com.pbms.pbmsandroid.page.HomeFragment;
 import com.pbms.pbmsandroid.page.ProjectStatusFragment;
 import com.pbms.pbmsandroid.page.WithdrawFragment;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private String bgyId;
+    List<ProjectDao> pro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -50,7 +61,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -77,14 +88,14 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new Fragment();
 
         if (id == R.id.nav_home) {
-            fragment = new HomeFragment().newInstance("1");
+            fragment = new HomeFragment().newInstance(bgyId);
         } else if (id == R.id.nav_pjstatus) {
-            fragment = new ProjectStatusFragment();
+            fragment = new ProjectStatusFragment().newInstance(bgyId);
         } else if (id == R.id.nav_withdraw) {
             fragment = new WithdrawFragment();
 
         } else if (id == R.id.nav_graph) {
-
+            fragment = new BudgetGraphFragment().newInstance(bgyId);
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -96,4 +107,14 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public String getBgyId() {
+        return bgyId;
+    }
+
+    public void setBgyId(String bgyId) {
+        this.bgyId = bgyId;
+        Log.d("Main", "setBgyId: " + this.bgyId);
+    }
+
 }
