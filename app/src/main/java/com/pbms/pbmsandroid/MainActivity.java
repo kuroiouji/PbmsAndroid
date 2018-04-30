@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.pbms.pbmsandroid.page.HomeFragment;
 import com.pbms.pbmsandroid.page.ProjectStatusFragment;
+import com.pbms.pbmsandroid.page.WithdrawFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_pjstatus) {
             fragment = new ProjectStatusFragment();
         } else if (id == R.id.nav_withdraw) {
+            fragment = new WithdrawFragment();
 
         } else if (id == R.id.nav_graph) {
 
