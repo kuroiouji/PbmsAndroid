@@ -41,4 +41,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("getDraftWithdrawByBgy")
     Call<List<DraftWithdrawDao>> getDraftWithdrawByBgy(@Field("bgyId") String bgyId);
+
+    @FormUrlEncoded
+    @POST("bill_save")
+    Call<TransDao> billSave(@Field("wdCode") String wdCode, @Field("wdTopic") String wdTopic, @Field("wdPs") String wdPs, @Field("wdDate") String wdDate, @Field("bgyId") String bgyId);
 }

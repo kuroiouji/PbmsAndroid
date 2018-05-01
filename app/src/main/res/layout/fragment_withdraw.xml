@@ -62,7 +62,7 @@
             <EditText
                 android:id="@+id/bill_code"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@drawable/round_line"
                 android:inputType="text"
                 android:textColor="#000000"
@@ -88,7 +88,7 @@
             <EditText
                 android:id="@+id/bill_topic"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@drawable/round_line"
                 android:inputType="text"
                 android:textColor="#000000"
@@ -119,10 +119,11 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:id="@+id/datePicker"
                     android:textColor="#000000"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp"
+                    android:gravity="center"/>
 
             </LinearLayout>
 

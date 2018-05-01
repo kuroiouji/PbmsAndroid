@@ -7,9 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pbms.pbmsandroid.datepicker.AppUtils;
 import com.pbms.pbmsandroid.datepicker.DatePickerFragment;
@@ -21,6 +24,8 @@ import com.pbms.pbmsandroid.adapter.SpPersonAdapter;
 import com.pbms.pbmsandroid.model.BudgetYear;
 import com.pbms.pbmsandroid.model.BudgetYearDao;
 import com.pbms.pbmsandroid.model.PersonDao;
+import com.pbms.pbmsandroid.model.TransDao;
+import com.pbms.pbmsandroid.service.ApiService;
 import com.pbms.pbmsandroid.service.HttpManager;
 
 import java.io.IOException;
@@ -39,7 +44,7 @@ import retrofit2.Response;
  * Use the {@link WithdrawFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WithdrawFragment extends Fragment implements DatePickerSelectionInterface{
+public class WithdrawFragment extends Fragment implements DatePickerSelectionInterface {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,7 +60,11 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
 
     Button button;
     Spinner spinner, spinner_ps;
+    EditText billCode, billTopic;
+    TextView textDatePicker;
     private List<BudgetYear> budgetYears;
+    private List<PersonDao> personDaos;
+    String bgy, ps;
 
     public WithdrawFragment() {
         // Required empty public constructor
@@ -106,8 +115,34 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
     }
 
     private void insertWithdraw() {
+        String codeBill, topicBill, date;
+        codeBill = billCode.getText().toString();
+        topicBill = billTopic.getText().toString();
+        date = textDatePicker.getText().toString();
+        String[] datas = date.split(" ");
+        date = datas[2]+"-"+datas[1]+"-"+datas[0];
+        if (!bgy.isEmpty() && !ps.isEmpty() && !codeBill.isEmpty() && !topicBill.isEmpty() && !date.isEmpty()) {
+            Log.d("data", "insertWithdraw: " + codeBill + " " + topicBill + " " + ps + " " + date + " " + bgy);
+            Call<TransDao> call = HttpManager.getInstance().getService().billSave(codeBill, topicBill, ps, date, bgy);
+            call.enqueue(new Callback<TransDao>() {
+                @Override
+                    public void onResponse(Call<TransDao> call, Response<TransDao> response) {
+                    if (response.isSuccessful()) {
+                        ((MainActivity) getActivity()).goToDraft();
+                        Toast.makeText(getActivity(), response.body().getStr(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "บันทึกข้อมูลไม่สำเร็จ", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-        ((MainActivity) getActivity()).goToDraft();
+                @Override
+                public void onFailure(Call<TransDao> call, Throwable t) {
+                    Log.d("insert", "onFailure: " + t);
+                    Toast.makeText(getActivity(), "บันทึกข้อมูลไม่สำเร็จ", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 
     private void openDatePicker() {
@@ -118,7 +153,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
             calendar.setTimeInMillis(mLastDatePickerValue);
             Bundle bundle = new Bundle();
             bundle.putInt("year", calendar.get(Calendar.YEAR));
-            bundle.putInt("month", calendar.get(Calendar.MONTH)+1);
+            bundle.putInt("month", calendar.get(Calendar.MONTH) + 1);
             bundle.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
             datePickerFragment.setArguments(bundle);
         }
@@ -136,12 +171,40 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
 
         spinner = view.findViewById(R.id.wd_bgy_id);
         spinner_ps = view.findViewById(R.id.ps_name);
+        billCode = view.findViewById(R.id.bill_code);
+        billTopic = view.findViewById(R.id.bill_topic);
+        textDatePicker = view.findViewById(R.id.datePicker);
 
         getBgy();
         getPerson();
         initViews(view);
-
+        spinnerEvents();
         return view;
+    }
+
+    private void spinnerEvents() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                bgy = budgetYears.get(position).getBgyId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner_ps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ps = personDaos.get(position).getPsId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -170,8 +233,8 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
 
     @Override
     public void onDateSelected(int day, int month, int year) {
-        mLastTimePickerValue=0;
-        mSelectedDateOrTimeTextView.setText(String.valueOf(AppUtils.formatCharLength(2, day) + " " + AppUtils.formatCharLength(2, (month + 1)) + " " + (year + 543)));
+        mLastTimePickerValue = 0;
+        mSelectedDateOrTimeTextView.setText(String.valueOf(AppUtils.formatCharLength(2, day) + " " + AppUtils.formatCharLength(2, (month + 1)) + " " + (year)));
         mLastDatePickerValue = AppUtils.dateIntoTimeStamp(String.valueOf(day + " " + (month) + " " + year));
     }
 
@@ -220,7 +283,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
         });
     }
 
-    public void getPerson(){
+    public void getPerson() {
         Call<List<PersonDao>> call = HttpManager.getInstance().getService().getPerson();
         call.enqueue(new Callback<List<PersonDao>>() {
             @Override
@@ -228,6 +291,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
                 if (response.isSuccessful()) {
                     Log.d("ps", "if :: " + response.message());
                     List<PersonDao> res = response.body();
+                    personDaos = res;
                     if (res.size() > 0) {
                         SpPersonAdapter adapter = new SpPersonAdapter(getActivity(), res);
                         spinner_ps.setAdapter(adapter);
