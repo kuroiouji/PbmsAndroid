@@ -31,9 +31,9 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("updateStatus")
-    Call<String> updateStatus(@Field("pjId") String pjId,@Field("stId") String stId);
+    Call<TransDao> updateStatus(@Field("id") String pjId,@Field("stId") String stId,@Field("bgyId") String bgyId,@Field("type") String type);
 
     @FormUrlEncoded
     @POST("pbms_use_budget")
-    Call<List<UseBudgetDao>> getUseBudget(@Field("yearId") String bgyId);
+    Call<List<UseBudgetDao>> getUseBudget(@Field("bgyId") String bgyId);
 }
