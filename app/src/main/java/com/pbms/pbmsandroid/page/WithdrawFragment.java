@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.pbms.pbmsandroid.DatePicker.AppUtils;
 import com.pbms.pbmsandroid.DatePicker.DatePickerFragment;
 import com.pbms.pbmsandroid.DatePicker.DatePickerSelectionInterface;
+import com.pbms.pbmsandroid.MainActivity;
 import com.pbms.pbmsandroid.R;
 import com.pbms.pbmsandroid.adapter.SpBgyAdapter;
 import com.pbms.pbmsandroid.adapter.SpPersonAdapter;
@@ -49,11 +50,8 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private String bgyId;
 
     private long mLastTimePickerValue;
@@ -62,6 +60,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
 
     private OnFragmentInteractionListener mListener;
 
+    Button button;
     Spinner spinner, spinner_ps;
     private List<BudgetYear> budgetYears;
 
@@ -74,15 +73,13 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment WithdrawFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WithdrawFragment newInstance(String param1, String param2) {
+    public static WithdrawFragment newInstance(String param1) {
         WithdrawFragment fragment = new WithdrawFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -93,8 +90,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
         if (getArguments() != null) {
             bgyId = getArguments().getString(ARG_PARAM1);
         }
-        getBgy();
-        getPerson();
+
     }
 
     private void initViews(View view) {
@@ -107,6 +103,18 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
                 openDatePicker();
             }
         });
+        button = view.findViewById(R.id.btn_withdraw);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertWithdraw();
+            }
+        });
+    }
+
+    private void insertWithdraw() {
+
+        ((MainActivity) getActivity()).goToDraft();
     }
 
     private void openDatePicker() {
@@ -136,6 +144,8 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
         spinner = view.findViewById(R.id.wd_bgy_id);
         spinner_ps = view.findViewById(R.id.ps_name);
 
+        getBgy();
+        getPerson();
         initViews(view);
 
         return view;
