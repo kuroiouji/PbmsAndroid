@@ -58,7 +58,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
 
     private OnFragmentInteractionListener mListener;
 
-    Button button;
+    Button buttonSuccess, buttonDanger;
     Spinner spinner, spinner_ps;
     EditText billCode, billTopic;
     TextView textDatePicker;
@@ -105,13 +105,26 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
                 openDatePicker();
             }
         });
-        button = view.findViewById(R.id.btn_withdraw);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        buttonSuccess = view.findViewById(R.id.btn_withdraw_success);
+        buttonSuccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 insertWithdraw();
             }
         });
+
+        buttonDanger = view.findViewById(R.id.btn_withdraw_danger);
+        buttonDanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelWithdraw();
+            }
+        });
+    }
+
+    private void cancelWithdraw() {
+        ((MainActivity) getActivity()).goToDraft();
     }
 
     private void insertWithdraw() {
@@ -119,9 +132,9 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
         codeBill = billCode.getText().toString();
         topicBill = billTopic.getText().toString();
         date = textDatePicker.getText().toString();
-        String[] datas = date.split(" ");
-        date = datas[2]+"-"+datas[1]+"-"+datas[0];
         if (!bgy.isEmpty() && !ps.isEmpty() && !codeBill.isEmpty() && !topicBill.isEmpty() && !date.isEmpty()) {
+            String[] datas = date.split(" ");
+            date = datas[2]+"-"+datas[1]+"-"+datas[0];
             Log.d("data", "insertWithdraw: " + codeBill + " " + topicBill + " " + ps + " " + date + " " + bgy);
             Call<TransDao> call = HttpManager.getInstance().getService().billSave(codeBill, topicBill, ps, date, bgy);
             call.enqueue(new Callback<TransDao>() {
@@ -141,6 +154,8 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
                     Toast.makeText(getActivity(), "บันทึกข้อมูลไม่สำเร็จ", Toast.LENGTH_SHORT).show();
                 }
             });
+        }else {
+            Toast.makeText(getActivity(), "กรุณาใส่ข้อมูลให้ครบถ้วน", Toast.LENGTH_SHORT).show();
         }
 
     }

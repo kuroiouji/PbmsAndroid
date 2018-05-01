@@ -66,7 +66,7 @@
                 android:background="@drawable/round_line"
                 android:inputType="text"
                 android:textColor="#000000"
-                android:textSize="16dp"/>
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -92,7 +92,7 @@
                 android:background="@drawable/round_line"
                 android:inputType="text"
                 android:textColor="#000000"
-                android:textSize="16dp"/>
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -118,12 +118,12 @@
                 android:background="@drawable/round_line">
 
                 <TextView
+                    android:id="@+id/datePicker"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/datePicker"
+                    android:gravity="center"
                     android:textColor="#000000"
-                    android:textSize="16dp"
-                    android:gravity="center"/>
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -160,14 +160,26 @@
 
         <!--Button Withdraw-->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
+
+            <!--ยกเลิก-->
+            <Button
+                android:id="@+id/btn_withdraw_danger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_button_success"
+                android:text="ยกเลิก"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <!--บันทึก-->
             <Button
-                android:id="@+id/btn_withdraw"
+                android:id="@+id/btn_withdraw_success"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
