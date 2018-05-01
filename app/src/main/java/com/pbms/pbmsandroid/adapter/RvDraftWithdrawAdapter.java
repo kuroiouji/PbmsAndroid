@@ -56,8 +56,18 @@ public class RvDraftWithdrawAdapter extends RecyclerView.Adapter<RvDraftWithdraw
         holder.wd_topic.setText(draftWithdrawDaos.get(position).getWdTopic());
         holder.wd_person.setText(draftWithdrawDaos.get(position).getWdPsName());
         holder.wd_cutbal.setText(draftWithdrawDaos.get(position).getWdCutbalDate());
-        holder.wd_active.setText(draftWithdrawDaos.get(position).getWdActive());
-        holder.gradientDrawable.setColor(Color.parseColor("#03a9f4"));
+
+        if (draftWithdrawDaos.get(position).getWdActive().equals("Y")) {
+            holder.gradientDrawable.setColor(Color.parseColor("#7eb73d"));
+            holder.wd_active.setText("เปิดใช้งาน");
+        } else if (draftWithdrawDaos.get(position).getWdActive().equals("N")) {
+            holder.gradientDrawable.setColor(Color.parseColor("#686868"));
+            holder.wd_active.setText("ปิดใช้งาน");
+        } else if (draftWithdrawDaos.get(position).getWdActive().equals("D")) {
+            holder.gradientDrawable.setColor(Color.parseColor("#03a9f4"));
+            holder.wd_active.setText("แบบร่าง");
+        }
+
     }
 
     @Override

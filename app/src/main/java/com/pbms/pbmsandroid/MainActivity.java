@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
         transaction.addToBackStack(null);
         transaction.commit();
+        setTitle("Pbms - หน้าหลัก");
     }
 
     @Override
@@ -90,12 +91,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             fragment = new HomeFragment().newInstance(bgyId);
+            setTitle("Pbms - หน้าหลัก");
         } else if (id == R.id.nav_pjstatus) {
             fragment = new ProjectStatusFragment().newInstance(bgyId);
+            setTitle("Pbms - จัดการสถานะโครงการ");
         } else if (id == R.id.nav_withdraw) {
             fragment = new DraftWithdrawFragment().newInstance(bgyId);
+            setTitle("Pbms - จัดการโครงสร้างใบเบิก");
         } else if (id == R.id.nav_graph) {
             fragment = new BudgetGraphFragment().newInstance(bgyId);
+            setTitle("Pbms - กราฟการเบิกจ่าย");
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -112,6 +117,7 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.FragmentDetail, fragment);
         transaction.commit();
+        setTitle("Pbms - เพิ่มใบเบิก");
     }
 
     public void goToDraft(){
@@ -119,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.FragmentDetail, fragment);
         transaction.commit();
+        setTitle("Pbms - จัดการโครงสร้างใบเบิก");
     }
 
     public String getBgyId() {
