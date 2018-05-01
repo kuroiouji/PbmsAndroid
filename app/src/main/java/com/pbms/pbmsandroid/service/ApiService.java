@@ -24,7 +24,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("getProjectByYear")
-    Call<List<ProjectDao>> getProjectByYear(@Field("bgyId") int id);
+    Call<List<ProjectDao>> getProjectByYear(@Field("bgyId") String id);
 
     @GET("getPerson")
     Call<List<PersonDao>> getPerson();
