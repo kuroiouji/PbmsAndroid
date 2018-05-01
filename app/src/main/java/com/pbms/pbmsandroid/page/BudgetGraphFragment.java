@@ -10,12 +10,17 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.pbms.pbmsandroid.R;
@@ -48,7 +53,8 @@ public class BudgetGraphFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View pieChart;
-    private PieChart chart;
+    private PieChart pieChart1;
+    private BarChart barChart;
 
     public BudgetGraphFragment() {
         // Required empty public constructor
@@ -84,7 +90,8 @@ public class BudgetGraphFragment extends Fragment {
         // Inflate the layout for this fragment
         service();
         View view = inflater.inflate(R.layout.fragment_budget_graph, container, false);
-        chart = (PieChart) view.findViewById(R.id.pieChart);
+        pieChart1 = (PieChart) view.findViewById(R.id.pieChart);
+        barChart = (BarChart) view.findViewById(R.id.barChart);
         return view;
     }
 
@@ -135,6 +142,7 @@ public class BudgetGraphFragment extends Fragment {
                 if (response.isSuccessful()){
                     List<UseBudgetDao> useBudget = response.body();
                     initPieChart(useBudget);
+                    initBarChart(useBudget);
                     Log.d("getServiceUseBudget","if : " + useBudget.size());
                 }else{
                     Log.d("getServiceUseBudget","if : " + response.message());
@@ -167,14 +175,14 @@ public class BudgetGraphFragment extends Fragment {
         dataSet.setValueFormatter(new PercentFormatter());
 
         PieData data = new PieData(dataSet);
-        chart.setData(data);
-        chart.setHoleRadius(30);
-        chart.setTransparentCircleRadius(40);
-        chart.animateY(1500);
-        chart.animateY(1500, Easing.EasingOption.EaseInBounce);
-        chart.setUsePercentValues(true);
+        pieChart1.setData(data);
+        pieChart1.setHoleRadius(30);
+        pieChart1.setTransparentCircleRadius(40);
+        pieChart1.animateY(1500);
+        pieChart1.animateY(1500, Easing.EasingOption.EaseInBounce);
+        pieChart1.setUsePercentValues(true);
 
-        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        pieChart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
 
@@ -185,5 +193,20 @@ public class BudgetGraphFragment extends Fragment {
 
             }
         });
+    }
+
+    private void initBarChart(List<UseBudgetDao> useBudget) {
+        List<BarEntry> entries = new ArrayList<>();
+        for (UseBudgetDao useBudgetDao:useBudget){
+            entries.add(new BarEntry(Float.parseFloat(useBudgetDao.getUsRsId()),useBudgetDao.getUsRsSpend()));
+        }
+
+        BarDataSet dataSet = new BarDataSet(entries,"งบประมาณแผ่นดิน");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        BarData data = new BarData(dataSet);
+        data.setBarWidth(0.9f); // set custom bar width
+        barChart.setData(data);
+        barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.invalidate(); // refresh
     }
 }
