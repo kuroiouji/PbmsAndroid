@@ -1,6 +1,7 @@
 package com.pbms.pbmsandroid.service;
 
 import com.pbms.pbmsandroid.model.BudgetYearDao;
+import com.pbms.pbmsandroid.model.DraftWithdrawDao;
 import com.pbms.pbmsandroid.model.PersonDao;
 import com.pbms.pbmsandroid.model.ProjectDao;
 import com.pbms.pbmsandroid.model.StatusDao;
@@ -36,4 +37,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("pbms_use_budget")
     Call<List<UseBudgetDao>> getUseBudget(@Field("bgyId") String bgyId);
+
+    @FormUrlEncoded
+    @POST("getDraftWithdrawByBgy")
+    Call<List<DraftWithdrawDao>> getDraftWithdrawByBgy(@Field("bgyId") String bgyId);
 }
