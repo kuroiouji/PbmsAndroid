@@ -1,24 +1,19 @@
 package com.pbms.pbmsandroid.page;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.pbms.pbmsandroid.DatePicker.AppUtils;
-import com.pbms.pbmsandroid.DatePicker.DatePickerFragment;
-import com.pbms.pbmsandroid.DatePicker.DatePickerSelectionInterface;
+import com.pbms.pbmsandroid.datepicker.AppUtils;
+import com.pbms.pbmsandroid.datepicker.DatePickerFragment;
+import com.pbms.pbmsandroid.datepicker.DatePickerSelectionInterface;
 import com.pbms.pbmsandroid.MainActivity;
 import com.pbms.pbmsandroid.R;
 import com.pbms.pbmsandroid.adapter.SpBgyAdapter;
@@ -29,9 +24,7 @@ import com.pbms.pbmsandroid.model.PersonDao;
 import com.pbms.pbmsandroid.service.HttpManager;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import retrofit2.Call;

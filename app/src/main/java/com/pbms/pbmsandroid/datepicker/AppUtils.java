@@ -1,4 +1,4 @@
-package com.pbms.pbmsandroid.DatePicker;
+package com.pbms.pbmsandroid.datepicker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
