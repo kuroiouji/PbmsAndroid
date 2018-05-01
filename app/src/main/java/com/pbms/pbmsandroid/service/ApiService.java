@@ -4,6 +4,8 @@ import com.pbms.pbmsandroid.model.BudgetYearDao;
 import com.pbms.pbmsandroid.model.PersonDao;
 import com.pbms.pbmsandroid.model.ProjectDao;
 import com.pbms.pbmsandroid.model.StatusDao;
+import com.pbms.pbmsandroid.model.TransDao;
+import com.pbms.pbmsandroid.model.UseBudgetDao;
 
 import java.util.List;
 
@@ -27,4 +29,11 @@ public interface ApiService {
     @GET("getPerson")
     Call<List<PersonDao>> getPerson();
 
+    @FormUrlEncoded
+    @POST("updateStatus")
+    Call<String> updateStatus(@Field("pjId") String pjId,@Field("stId") String stId);
+
+    @FormUrlEncoded
+    @POST("pbms_use_budget")
+    Call<List<UseBudgetDao>> getUseBudget(@Field("yearId") String bgyId);
 }
