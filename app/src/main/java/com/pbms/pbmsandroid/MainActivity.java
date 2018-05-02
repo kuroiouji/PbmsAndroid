@@ -60,45 +60,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-//            super.onBackPressed();
-            FrameLayout fl = (FrameLayout) findViewById(R.id.FragmentDetail);
-            if (fl.getChildCount() == 1) {
-                super.onBackPressed();
-                if (fl.getChildCount() == 0){
-                    Log.d("exit", "onBackPressed: "+fl.getChildCount());
-                    AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
-                    alertDlg.setMessage("Are you sure you want to exit?");
-                    alertDlg.setCancelable(false); // We avoid that the dialong can be cancelled, forcing the user to choose one of the options
-                    alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-//                                    MainActivity.super.onBackPressed();
-                                    finish();
-                                }
-                            }
-                    );
-                    alertDlg.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                            setTitle("Pbms - หน้าหลัก");
-                        }
-                    });
-                    alertDlg.create().show();
-                }
-            } else if (fl.getChildCount() == 0) {
-                // load your first Fragment here
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
-                transaction.addToBackStack(null);
-                transaction.commit();
-                setTitle("Pbms - หน้าหลัก");
-            } else {
-                super.onBackPressed();
-            }
-
+            super.onBackPressed();
         }
     }
 
