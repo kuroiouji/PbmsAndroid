@@ -22,6 +22,7 @@ import com.pbms.pbmsandroid.model.StatusDao;
 import com.pbms.pbmsandroid.model.TransDao;
 import com.pbms.pbmsandroid.service.HttpManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,6 +36,7 @@ import retrofit2.Response;
 public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.ProjectDaoViewHolder> {
     private List<ProjectDao> projectDaos;
     private List<StatusDao> statusDaos;
+    private List<ProjectDao> mFilteredList;
     private Context mContext;
     private String bgyId;
 //    String pjId,type,stId;
@@ -44,6 +46,8 @@ public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.Projec
         this.statusDaos = statusDaos;
         this.mContext = mContext;
         this.bgyId = bgyId;
+        this.mFilteredList = new ArrayList<>();
+        mFilteredList.addAll(projectDaos);
     }
 
     @NonNull
@@ -149,5 +153,23 @@ public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.Projec
             spinner = (Spinner) itemView.findViewById(R.id.pj_status);
             gradientDrawable = (GradientDrawable) pj_code.getBackground().mutate();
         }
+    }
+
+    public void filter(CharSequence sequence) {
+        ArrayList<ProjectDao> temp = new ArrayList<>();
+        if (!sequence.toString().isEmpty()) {
+            Log.d("searchData", "filter: " + sequence);
+            for (ProjectDao row : mFilteredList) {
+                if (row.getPjCode().contains(sequence) || row.getPjName().contains(sequence) || row.getPjSpend().contains(sequence)) {//
+                    temp.add(row);
+                }
+            }
+        } else {
+            temp.addAll(mFilteredList);
+        }
+        projectDaos.clear();
+        projectDaos.addAll(temp);
+        notifyDataSetChanged();
+        temp.clear();
     }
 }

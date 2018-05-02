@@ -1,5 +1,6 @@
 package com.pbms.pbmsandroid;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -7,11 +8,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.pbms.pbmsandroid.model.ProjectDao;
 import com.pbms.pbmsandroid.page.BudgetGraphFragment;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String bgyId;
     List<ProjectDao> pro;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,45 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            FrameLayout fl = (FrameLayout) findViewById(R.id.FragmentDetail);
+            if (fl.getChildCount() == 1) {
+                super.onBackPressed();
+                if (fl.getChildCount() == 0){
+                    Log.d("exit", "onBackPressed: "+fl.getChildCount());
+                    AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
+                    alertDlg.setMessage("Are you sure you want to exit?");
+                    alertDlg.setCancelable(false); // We avoid that the dialong can be cancelled, forcing the user to choose one of the options
+                    alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+//                                    MainActivity.super.onBackPressed();
+                                    finish();
+                                }
+                            }
+                    );
+                    alertDlg.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            setTitle("Pbms - หน้าหลัก");
+                        }
+                    });
+                    alertDlg.create().show();
+                }
+            } else if (fl.getChildCount() == 0) {
+                // load your first Fragment here
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.FragmentDetail, new HomeFragment().newInstance(bgyId));
+                transaction.addToBackStack(null);
+                transaction.commit();
+                setTitle("Pbms - หน้าหลัก");
+            } else {
+                super.onBackPressed();
+            }
+
         }
     }
 

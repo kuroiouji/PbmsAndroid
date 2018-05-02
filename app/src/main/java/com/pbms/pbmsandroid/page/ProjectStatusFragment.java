@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.pbms.pbmsandroid.MainActivity;
 import com.pbms.pbmsandroid.R;
@@ -44,7 +47,9 @@ public class ProjectStatusFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerView;
+    RvStatusAdapter adapter;
     List<StatusDao> status;
+    EditText etSearch;
 
     public ProjectStatusFragment() {
         // Required empty public constructor
@@ -83,6 +88,7 @@ public class ProjectStatusFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview_list);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
+        etSearch = view.findViewById(R.id.etSearch);
         getSt();
 
         return view;
@@ -137,8 +143,9 @@ public class ProjectStatusFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<ProjectDao> res = response.body();
                     Log.d("service", "if :: " + response.message());
-                    RvStatusAdapter adapter = new RvStatusAdapter(res, status, getActivity(),bgyId);
+                    adapter = new RvStatusAdapter(res, status, getActivity(),bgyId);
                     recyclerView.setAdapter(adapter);
+                    searchData();
                     /*for (ProjectDao row : res) {
                         Log.d("service", row.getPjName());
                     }*/
@@ -181,6 +188,27 @@ public class ProjectStatusFragment extends Fragment {
             @Override
             public void onFailure(Call<List<StatusDao>> call, Throwable t) {
                 Log.d("service", "else :: " + t);
+            }
+        });
+    }
+
+    public void searchData() {
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("searchData", "beforeTextChanged: " + s);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("searchData", "onTextChanged: " + s);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("searchData", "afterTextChanged: " + s);
+                adapter.filter(s);
             }
         });
     }
