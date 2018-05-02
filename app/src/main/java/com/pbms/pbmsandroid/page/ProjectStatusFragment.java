@@ -84,7 +84,7 @@ public class ProjectStatusFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         getSt();
-        getProAcList();
+
         return view;
     }
 
@@ -168,7 +168,7 @@ public class ProjectStatusFragment extends Fragment {
                     List<StatusDao> res = response.body();
                     Log.d("service", "if :: " + response.message());
                     status = res;
-
+                    getProAcList();
                 } else {
                     try {
                         Log.d("service", "else :: " + response.errorBody().string());
