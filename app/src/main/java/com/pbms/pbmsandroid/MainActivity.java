@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String bgyId;
     List<ProjectDao> pro;
-    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
