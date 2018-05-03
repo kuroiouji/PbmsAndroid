@@ -18,7 +18,7 @@
             android:title="จัดการโครงสร้างใบเบิก" />
         <item
             android:id="@+id/nav_graph"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_show_chart_black_24dp"
             android:title="กราฟการเบิกจ่าย" />
     </group>
 
