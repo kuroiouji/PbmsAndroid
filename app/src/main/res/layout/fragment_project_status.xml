@@ -7,7 +7,28 @@
     tools:context=".page.ProjectStatusFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        >
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ค้นหาข้อมูล"
+            android:inputType="text"
+            android:textColor="#000000"
+            />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -26,7 +47,9 @@
             android:inputType="text"
             android:id="@+id/etSearch"
             />
-    </LinearLayout>
+    </LinearLayout>  -->
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_list"
         android:layout_width="match_parent"

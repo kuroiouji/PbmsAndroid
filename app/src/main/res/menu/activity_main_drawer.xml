@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/home"
             android:title="หน้าหลัก" />
         <item
             android:id="@+id/nav_pjstatus"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/manage"
             android:title="จัดการสถานะโครงการ" />
         <item
             android:id="@+id/nav_withdraw"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/money"
             android:title="จัดการโครงสร้างใบเบิก" />
         <item
             android:id="@+id/nav_graph"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/graph"
             android:title="กราฟการเบิกจ่าย" />
     </group>
 

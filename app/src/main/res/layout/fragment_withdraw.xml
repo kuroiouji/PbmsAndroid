@@ -3,165 +3,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d7d7d7"
+    android:background="@drawable/scooter"
     tools:context="com.pbms.pbmsandroid.page.WithdrawFragment">
 
-    <LinearLayout
+
+     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:background="#b4ffffff"
+        android:background="#ffffff"
         android:orientation="vertical"
         android:padding="15dp">
 
         <!--bgy_id-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+         <android.support.design.widget.TextInputLayout
+             android:layout_marginTop="20dp"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             >
 
-            <!--ปีงบประมาณ-->
-            <TextView
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:text="ปีงบประมาณ"
-                android:textStyle="bold" />
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="ปีงบประมาณ"
+                 />
+             <Spinner
+                 android:id="@+id/wd_bgy_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"></Spinner>
 
-            <!--wd_bgy_id-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_line">
 
-                <Spinner
-                    android:id="@+id/wd_bgy_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></Spinner>
-
-            </LinearLayout>
-
-        </LinearLayout>
+         </android.support.design.widget.TextInputLayout>
 
         <!--Bill Code-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+         <android.support.design.widget.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             >
 
-            <!--เลขที่ใบเบิก-->
-            <TextView
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:text="เลขที่ใบเบิก"
-                android:textStyle="bold" />
+             <EditText
+                 android:id="@+id/bill_code"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="เลขที่ใบเบิก"
+                 android:inputType="text"
+                 android:textColor="#000000"
+                 />
 
-            <!--bill_code-->
-            <EditText
-                android:id="@+id/bill_code"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/round_line"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:textSize="16dp" />
 
-        </LinearLayout>
+         </android.support.design.widget.TextInputLayout>
+
 
         <!--Bill Topic-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+         <android.support.design.widget.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             >
 
-            <!--เรื่องเบิก-->
-            <TextView
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:text="เรื่องเบิก"
-                android:textStyle="bold" />
+             <EditText
+                 android:id="@+id/bill_topic"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="เรื่องเบิก"
+                 android:inputType="text"
+                 android:textColor="#000000"
+                 />
 
-            <!--bill_topic-->
-            <EditText
-                android:id="@+id/bill_topic"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/round_line"
-                android:inputType="text"
-                android:textColor="#000000"
-                android:textSize="16dp" />
 
-        </LinearLayout>
+         </android.support.design.widget.TextInputLayout>
+
 
         <!--Bill Date-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+         <android.support.design.widget.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginTop="5dp"
+             >
 
-            <!--วันที่ตัดยอดเบิก-->
-            <TextView
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:text="วันที่ตัดยอดเบิก"
-                android:textStyle="bold" />
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="วันที่ตัดยอดเบิก"
+                 android:layout_marginBottom="5dp"
+                 />
+             <TextView
+                 android:id="@+id/datePicker"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="15dp"
+                 android:padding="5dp"
+                 android:textColor="#000000"
+                 />
 
-            <!--bill_date-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_line">
-
-                <TextView
-                    android:id="@+id/datePicker"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:textColor="#000000"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+         </android.support.design.widget.TextInputLayout>
 
         <!--Person Item-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
-
             <!--ผู้ทำเรื่องเบิก-->
-            <TextView
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:text="ผู้ทำเรื่องเบิก"
-                android:textStyle="bold" />
-
-            <!--person_item-->
-            <LinearLayout
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_line">
+                android:orientation="horizontal"
+                >
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="ผู้ทำเรื่องเบิก"
+                    />
                 <Spinner
                     android:id="@+id/ps_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></Spinner>
 
-            </LinearLayout>
 
-        </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
+
 
         <!--Button Withdraw-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -171,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/background_button_success"
+                android:background="@drawable/background_button_cancel"
                 android:text="ยกเลิก"
                 android:textColor="#ffffff"
                 android:textSize="18dp"
