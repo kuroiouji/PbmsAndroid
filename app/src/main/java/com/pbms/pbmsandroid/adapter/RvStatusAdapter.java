@@ -110,7 +110,7 @@ public class RvStatusAdapter extends RecyclerView.Adapter<RvStatusAdapter.Projec
                                     Log.d("insert", "onResponse: " + res.getStatus());
                                     Toast.makeText(mContext,res.getStr(),Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Log.d("insert", "onResponse: " + response.message());
+                                    Log.d("insert", "onResponse: " + response.errorBody());
                                 }
                             }
 

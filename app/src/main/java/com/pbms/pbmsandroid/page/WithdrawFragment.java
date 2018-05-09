@@ -144,6 +144,7 @@ public class WithdrawFragment extends Fragment implements DatePickerSelectionInt
                         ((MainActivity) getActivity()).goToDraft();
                         Toast.makeText(getActivity(), response.body().getStr(), Toast.LENGTH_SHORT).show();
                     } else {
+                        Log.d("insert", "else: " + response.errorBody());
                         Toast.makeText(getActivity(), "บันทึกข้อมูลไม่สำเร็จ", Toast.LENGTH_SHORT).show();
                     }
                 }
